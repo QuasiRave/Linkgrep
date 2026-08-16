@@ -10,7 +10,9 @@ It can locate symbolic links and hard links, trace back to their target files an
 *gcc -g main.c filetype.c link_probe.c fs_traverse.c -o linkgrep*   
 
 #### Usage
-./linkgrep *target_file_path* *directory_to_find_links*
-Eg: ./linkgrep /bin/gcc /bin 
+./linkgrep -f *target_file_path* *directory_to_find_links*
+Eg: ./linkgrep -f /bin/gcc /bin 
+./linkgrep -l *target_softlink* 
+Eg: ./linkgrep -l /sbin/init 
 
 
