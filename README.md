@@ -12,6 +12,7 @@ It can locate symbolic links and hard links, trace back to their target files an
 #### Usage
 ./linkgrep -f *target_file_path* *directory_to_find_links*
 Eg: ./linkgrep -f /bin/gcc /bin 
+
 ./linkgrep -l *target_softlink* 
 Eg: ./linkgrep -l /sbin/init 
 
