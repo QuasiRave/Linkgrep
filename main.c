@@ -13,36 +13,47 @@
 #define FONT_RESET "\033[0m"
 
 
+int getfd(char* target){
+	int fd;
+	fd = open(target,O_RDONLY);
+	return fd;
+}
+
 int show(char* target,char* findpath){
 	
 	// Showing file details
 
 	int fd,inode,count,ret;
-
-	fd = open(target,O_RDONLY);	
 	struct stat file_stat;
 
-	if(fd == -1){
-		perror(YELLOW "File not opened" RESET);
-	}
-	else{
-		ret = fstat(fd,&file_stat);
-		inode = file_stat.st_ino;
-		count = file_stat.st_nlink;
-		printf("File: %s\n",target);
-		printf("Inode: %d\n",inode);
-		printf("Link count: %d\n",count);
-		printf("Type: ");
-		file_type(target);
-		printf("\n");
-	}
+	fd = getfd(target);
+
+	ret = fstat(fd,&file_stat);
+	inode = file_stat.st_ino;
+	count = file_stat.st_nlink;
+	printf("File: %s\n",target);
+	printf("Inode: %d\n",inode);
+	printf("Link count: %d\n",count);
+	printf("Type: ");
+	file_type(target);
+	printf("\n");
 	close(fd);
 	return inode;
 }
 
 void find(char* target,char* findpath){
-	int inode = show(target,findpath);
-	traverse(target,inode,findpath);
+	int fd,inode;
+  	fd = getfd(target);
+
+	if(fd == -1){
+		perror(YELLOW "File not opened" RESET);
+	}
+	else{
+		inode = show(target,findpath);
+		puts("Links:");
+		traverse(target,inode,findpath);
+	}
+	close(fd);
 }
 
 void help(){
