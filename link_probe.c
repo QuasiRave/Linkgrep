@@ -31,19 +31,15 @@ void hardlink(char* target,int target_id,char* filepath){
 	close(fd);
 }
 
-void softlink(char* target,char* filepath){
+void softlink(char* target){
 
 	//Looking for absolute path
 	char *real_path;
-	real_path = realpath(filepath,NULL);
-	
-	if(real_path!=NULL && strcmp(real_path,target)==0){
-		if(strcmp(filepath,target)==1){
-			file_type(filepath);
-			printf("%s\n",filepath);
-		}
+	if(ftype(target)==10){
+		real_path = realpath(target,NULL);
+		printf("Link to: %s\n",real_path);
+		free(real_path);
 	}
-	free(real_path);
 	real_path = NULL;
 }
 

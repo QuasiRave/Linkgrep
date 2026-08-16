@@ -9,9 +9,12 @@
 #include "link_probe.h"
 #include "colors.h"
 
+
 void traverse(char* target,int target_id,char* dirpath){
 
 	//Traversing the file system
+	
+
 	DIR *dirptr;
 	struct dirent *dir;
 	dirptr = opendir(dirpath);
@@ -36,11 +39,6 @@ void traverse(char* target,int target_id,char* dirpath){
 					snprintf(filepath,sizeof(filepath),"%s/%s",dirpath,dir->d_name);
 				}
 				
-				if(dir->d_type == DT_LNK){
-					softlink(target,filepath);
-					
-				}
-
 				hardlink(target,target_id,filepath);
 
 
